@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5cca3513d91a4d65bb0071ba78fc9d5, type: 3}
+  m_Name: Super
+  m_EditorClassIdentifier: 
+  _slices:
+  - slice: {fileID: 11400000, guid: 507dc84a2e0c84487a4a39fc92283489, type: 2}
+    weight: 10
+  - slice: {fileID: 11400000, guid: 5cabfa5c7bb14ea3a8dd0a2641e6e273, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: 5f108c950c3242f589a0b20341ec6822, type: 2}
+    weight: 4
+  - slice: {fileID: 11400000, guid: b177214847f443cdba859ad19007f2bf, type: 2}
+    weight: 10
+  - slice: {fileID: 11400000, guid: 82757beb82784549a54876724441ac97, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: 35132349fee146f9a6b8a3875faf655e, type: 2}
+    weight: 4
+  - slice: {fileID: 11400000, guid: 4c090207b3ab420e8e6244b958e9379b, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: 89d421a66b5a45328ee416ea3694905a, type: 2}
+    weight: 4
+  - slice: {fileID: 11400000, guid: 49593381ed5f4714a547a2d557e7732c, type: 2}
+    weight: 3
+  - slice: {fileID: 11400000, guid: 9b690396137e4c48a6edea35b614a170, type: 2}
+    weight: 1
+  - slice: {fileID: 11400000, guid: 325337d69c5d40e39d6cf0642a756190, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: 974a3bda26c648f3836fdbbbf779236e, type: 2}
+    weight: 4
+  - slice: {fileID: 11400000, guid: 751560ea4f474f4cb970f026b31ee490, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: abbae3c95e7c4169986c35e9034cec8f, type: 2}
+    weight: 4
+  - slice: {fileID: 11400000, guid: f9823d213f35403ca90aa8b8f665da27, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: e3cd97e6cee04126b76e3a4b3dd03e98, type: 2}
+    weight: 4
+  - slice: {fileID: 11400000, guid: 1f82eaf1285e4d61bc56f5c28f1821b0, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: f214bc797a034240b148587dc44128ac, type: 2}
+    weight: 4
+  - slice: {fileID: 11400000, guid: 7743c8ec5bde4d3da1a85c57232787b0, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: 326d17d0abee41518427c98cc7db5c7e, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: 6189241b6a36483b8fc4e490dc34167d, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: c5e69d870ff54404863ecc2873989327, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: d46105aeb1054b6cbc41cd37a81e9949, type: 2}
+    weight: 7
+  - slice: {fileID: 11400000, guid: fc0330a19da840da901b04a4aa5bd683, type: 2}
+    weight: 2
+  - slice: {fileID: 11400000, guid: 3e96b5549ff246238e934cc83cd4e28f, type: 2}
+    weight: 2
+  - slice: {fileID: 11400000, guid: 412d9a926f4b4c2dab92f81f9368b403, type: 2}
+    weight: 2
+  _rewardMultiplierCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 5
+      inSlope: 0
+      outSlope: 0.08333333333333333
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 60
+      value: 10
+      inSlope: 0.08333333333333333
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _pickCount: 8
+  _forceBomb: 0

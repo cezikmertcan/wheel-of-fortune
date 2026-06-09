@@ -1,0 +1,19 @@
+using WheelOfFortune.Core;
+using WheelOfFortune.UI;
+
+public static class GameContext
+{
+    public static GameState state = GameState.Idle;
+    public static GameManager GameManager { get; set; }
+    public static UIManager UIManager { get; set; }
+}
+
+public enum GameState
+{
+    Idle,
+    Spinning,
+    ShowingReward,
+    BombHit,
+    Collected,
+    GameOver,
+}
