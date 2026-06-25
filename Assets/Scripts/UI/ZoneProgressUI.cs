@@ -24,7 +24,8 @@ namespace WheelOfFortune.UI
         [SerializeField] private int _refillBatchSize = 30;
         [SerializeField] private float _slideDuration = 0.35f;
 
-        private List<ZoneCardUI> _cards = new();
+        private readonly List<ZoneCardUI> _cards = new();
+        private readonly List<ZoneCardUI> _cardPool = new();
         private int _activeIndex = 0;
         private Tween _slideTween;
 
@@ -32,9 +33,12 @@ namespace WheelOfFortune.UI
         {
             _safeZoneInterval = safeZoneInterval;
             _superZoneInterval = superZoneInterval;
+            _activeIndex = 0;
 
-            foreach (Transform child in _content) Destroy(child.gameObject);
+            foreach (var card in _cardPool)
+                card.gameObject.SetActive(false);
             _cards.Clear();
+            _content.anchoredPosition = Vector2.zero;
 
             AddCards(_initialCardCount);
             _cards[0].SetCurrent(true);
@@ -71,11 +75,29 @@ namespace WheelOfFortune.UI
             int startSpin = _cards.Count + 1;
             for (int spin = startSpin; spin < startSpin + count; spin++)
             {
-                ZoneCardUI card = Instantiate(_cardPrefab, _content);
+                ZoneCardUI card = GetPooledCard();
                 card.gameObject.name = $"Zone {spin}";
                 card.Setup(spin, ZoneHelper.GetZoneType(spin, _safeZoneInterval, _superZoneInterval));
                 _cards.Add(card);
             }
+        }
+
+        private ZoneCardUI GetPooledCard()
+        {
+            foreach (var card in _cardPool)
+            {
+                if (!card.gameObject.activeSelf)
+                {
+                    card.transform.SetParent(_content);
+                    card.transform.SetAsLastSibling();
+                    card.gameObject.SetActive(true);
+                    return card;
+                }
+            }
+
+            ZoneCardUI newCard = Instantiate(_cardPrefab, _content);
+            _cardPool.Add(newCard);
+            return newCard;
         }
 
         private void SlideToCard(int index, bool animate)

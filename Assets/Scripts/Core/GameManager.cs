@@ -25,6 +25,7 @@ namespace WheelOfFortune.Core
             GameEvents.OnResultDisplayComplete.Subscribe(OnResultDisplayComplete);
             GameEvents.OnCollectAndExit.Subscribe(OnCollectAndExit);
             GameEvents.OnGameOver.Subscribe(OnGameOver);
+            GameEvents.OnRestart.Subscribe(OnRestart);
         }
 
         private void OnDisable()
@@ -34,6 +35,7 @@ namespace WheelOfFortune.Core
             GameEvents.OnResultDisplayComplete.Unsubscribe(OnResultDisplayComplete);
             GameEvents.OnCollectAndExit.Unsubscribe(OnCollectAndExit);
             GameEvents.OnGameOver.Unsubscribe(OnGameOver);
+            GameEvents.OnRestart.Unsubscribe(OnRestart);
         }
 
         private void OnSpinButtonClicked()
@@ -64,6 +66,13 @@ namespace WheelOfFortune.Core
         private void OnGameOver()
         {
             GameContext.state = GameState.GameOver;
+        }
+
+        private void OnRestart()
+        {
+            GameContext.state = GameState.Idle;
+            _wheelController.Initialize();
+            _zoneProgressUI.Initialize(_wheelController.SafeZoneInterval, _wheelController.SuperZoneInterval);
         }
     }
 }

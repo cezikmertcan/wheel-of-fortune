@@ -3180,9 +3180,9 @@ RectTransform:
   - {fileID: 1700157267}
   - {fileID: 214033654}
   - {fileID: 1645102039}
-  - {fileID: 1861218337}
   - {fileID: 2127725234}
   - {fileID: 2040754708}
+  - {fileID: 1861218337}
   - {fileID: 1060795899}
   - {fileID: 575135748}
   - {fileID: 1857173300}
@@ -3211,6 +3211,7 @@ MonoBehaviour:
   _rewardPool: {fileID: 2040754709}
   _bombResultPanel: {fileID: 1645102042}
   _collectResultPanel: {fileID: 2127725233}
+  _gameOverPanel: {fileID: 1060795898}
   _spinButtonEnableDelay: 0.5
 --- !u!1 &1434574347
 GameObject:
@@ -3711,7 +3712,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _reviveButton: {fileID: 1124891440}
   _giveUpButton: {fileID: 631756913}
-  _gameOverPanel: {fileID: 1060795898}
 --- !u!1 &1700157266
 GameObject:
   m_ObjectHideFlags: 0
@@ -4430,7 +4430,7 @@ RectTransform:
   - {fileID: 1468529278}
   - {fileID: 1785826356}
   m_Father: {fileID: 1400520238}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -4674,7 +4674,7 @@ RectTransform:
   - {fileID: 979733150}
   - {fileID: 431964749}
   m_Father: {fileID: 1400520238}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -4706,6 +4706,9 @@ MonoBehaviour:
   _spawnRadius: 30
   _particleDelay: 0.08
   _particleDuration: 0.55
+  _particleMidHorizontalRange: 60
+  _particleMidVerticalMin: 30
+  _particleMidVerticalMax: 100
 --- !u!1 &2067144207
 GameObject:
   m_ObjectHideFlags: 0
@@ -4919,7 +4922,7 @@ RectTransform:
   - {fileID: 1483676879}
   - {fileID: 835611221}
   m_Father: {fileID: 1400520238}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
