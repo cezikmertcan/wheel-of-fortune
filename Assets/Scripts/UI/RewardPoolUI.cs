@@ -37,6 +37,7 @@ namespace WheelOfFortune.UI
         [SerializeField] private float _particleMidVerticalMax = 100f;
 
         private readonly Dictionary<string, RewardRowUI> _rows = new();
+        private readonly List<Image> _particlePool = new();
         private ZoneType _currentZoneType = ZoneType.Normal;
 
         private bool CanShowExit => _rows.Count > 0 && _currentZoneType != ZoneType.Normal;
@@ -152,6 +153,28 @@ namespace WheelOfFortune.UI
             _scrollRect.verticalNormalizedPosition = 1f - targetY / scrollable;
         }
 
+        private Image GetPooledParticle()
+        {
+            foreach (var p in _particlePool)
+            {
+                if (p && !p.gameObject.activeSelf)
+                {
+                    p.gameObject.SetActive(true);
+                    return p;
+                }
+            }
+
+            Image newParticle = Instantiate(_particlePrefab, _particleContainer);
+            _particlePool.Add(newParticle);
+            return newParticle;
+        }
+
+        private void ReturnToPool(Image particle)
+        {
+            particle.DOKill();
+            particle.gameObject.SetActive(false);
+        }
+
         private void SpawnParticles(RewardRowUI targetRow, Sprite icon, int value)
         {
             int count = Mathf.Min(Random.Range(_minParticles, _maxParticles + 1), value);
@@ -164,10 +187,11 @@ namespace WheelOfFortune.UI
             {
                 float delay = i * _particleDelay;
 
-                Image particle = Instantiate(_particlePrefab, _particleContainer);
+                Image particle = GetPooledParticle();
                 if (icon) particle.sprite = icon;
 
                 Vector2 randCircle = Random.insideUnitCircle * _spawnRadius;
+                particle.transform.SetParent(_particleContainer);
                 particle.transform.position = start + new Vector3(randCircle.x, randCircle.y, 0f);
 
                 Vector3 mid = Vector3.Lerp(start, end, 0.5f)
@@ -182,7 +206,7 @@ namespace WheelOfFortune.UI
                     .SetEase(Ease.InCubic)
                     .OnComplete(() =>
                     {
-                        Destroy(particle.gameObject);
+                        ReturnToPool(particle);
                         arrived++;
 
                         if (arrived < count) return;
