@@ -64,17 +64,11 @@ namespace WheelOfFortune.Wheel
             GameEvents.OnSpinCountChanged.Raise(_spinCount);
 
             ZoneType newZone = ZoneHelper.GetZoneType(_spinCount, _safeZoneInterval, _superZoneInterval);
-            if (newZone != _currentZoneType)
-            {
-                _currentZoneType = newZone;
-                SetupSlices(_currentZoneType);
+            bool zoneChanged = newZone != _currentZoneType;
+            _currentZoneType = newZone;
+            SetupSlices(_currentZoneType);
+            if (zoneChanged)
                 GameEvents.OnZoneChanged.Raise(_currentZoneType);
-            }
-            else
-            {
-                float multiplier = GetConfig(_currentZoneType).GetRewardMultiplier(_spinCount);
-                GameEvents.OnMultiplierChanged.Raise(multiplier);
-            }
         }
 
         public void Spin() => SpinToIndex(PickTargetSlice(excludeBombs: false));
