@@ -16,6 +16,10 @@ namespace WheelOfFortune.Core
             GameContext.GameManager = this;
             _wheelController.Initialize();
             _zoneProgressUI.Initialize(_wheelController.SafeZoneInterval, _wheelController.SuperZoneInterval);
+        }
+
+        private void OnEnable()
+        {
             GameEvents.OnSpinButtonClicked.Subscribe(OnSpinButtonClicked);
             GameEvents.OnSpinCompleted.Subscribe(OnSpinCompleted);
             GameEvents.OnResultDisplayComplete.Subscribe(OnResultDisplayComplete);
@@ -23,7 +27,7 @@ namespace WheelOfFortune.Core
             GameEvents.OnGameOver.Subscribe(OnGameOver);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             GameEvents.OnSpinButtonClicked.Unsubscribe(OnSpinButtonClicked);
             GameEvents.OnSpinCompleted.Unsubscribe(OnSpinCompleted);
