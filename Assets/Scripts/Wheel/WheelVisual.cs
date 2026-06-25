@@ -49,7 +49,7 @@ namespace WheelOfFortune.Wheel
 
         private static void ApplySprite(Image image, Sprite sprite)
         {
-            if (image != null && sprite != null)
+            if (image && sprite)
                 image.sprite = sprite;
         }
     }
