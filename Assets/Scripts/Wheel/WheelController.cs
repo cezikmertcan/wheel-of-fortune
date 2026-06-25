@@ -43,6 +43,7 @@ namespace WheelOfFortune.Wheel
             _spinCount = 1;
             _currentZoneType = ZoneType.Normal;
             SetupSlices(_currentZoneType);
+            GameEvents.OnZoneChanged.Raise(_currentZoneType);
         }
 
         private void SetupSlices(ZoneType zone)

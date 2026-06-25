@@ -34,7 +34,7 @@ namespace WheelOfFortune.UI
             _superZoneInterval = superZoneInterval;
             _activeIndex = 0;
 
-            foreach (Transform child in _content) Destroy(child.gameObject);
+            foreach (Transform child in _content) DestroyImmediate(child.gameObject);
             _cards.Clear();
             _content.anchoredPosition = Vector2.zero;
 
