@@ -104,7 +104,7 @@ namespace WheelOfFortune.UI
 
         public void SetExitVisible(bool visible)
         {
-            if (_exitButtonContainer != null)
+            if (_exitButtonContainer)
                 _exitButtonContainer.gameObject.SetActive(visible);
         }
 
@@ -134,7 +134,7 @@ namespace WheelOfFortune.UI
 
         private void ScrollToRow(RewardRowUI row)
         {
-            if (_scrollRect == null) return;
+            if (!_scrollRect) return;
 
             RectTransform rowRect = (RectTransform)row.transform;
             RectTransform contentRect = _scrollRect.content;
