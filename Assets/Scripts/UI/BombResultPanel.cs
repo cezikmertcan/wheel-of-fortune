@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using WheelOfFortune.Core;
 using WheelOfFortune.Events;
 
 namespace WheelOfFortune.UI
@@ -22,10 +23,19 @@ namespace WheelOfFortune.UI
             _giveUpButton.onClick.RemoveListener(OnGiveUp);
         }
 
-        public void Show() => gameObject.SetActive(true);
+        public void Show()
+        {
+            gameObject.SetActive(true);
+            _reviveButton.interactable = GameContext.CurrencyManager != null
+                && GameContext.CurrencyManager.Balance >= GameContext.CurrencyManager.ReviveCost;
+        }
 
         private void OnRevive()
         {
+            if (GameContext.CurrencyManager == null
+                || !GameContext.CurrencyManager.TrySpend(GameContext.CurrencyManager.ReviveCost))
+                return;
+
             gameObject.SetActive(false);
             GameEvents.OnResultDisplayComplete.Raise();
         }

@@ -11,6 +11,7 @@ namespace WheelOfFortune.UI
         [SerializeField] private TMP_Text _amountText;
 
         public string ItemId { get; private set; }
+        public int CurrentAmount => _currentAmount;
         public RectTransform IconRect => (RectTransform)_icon.transform;
 
         private int _currentAmount;

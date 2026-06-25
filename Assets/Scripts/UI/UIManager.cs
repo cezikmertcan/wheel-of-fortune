@@ -42,7 +42,11 @@ namespace WheelOfFortune.UI
             DOVirtual.DelayedCall(_spinButtonEnableDelay, () => _spinButton.interactable = true);
 
         private void OnCollectAndExit() => _restartButton.gameObject.SetActive(true);
-        private void OnGameOver() => _restartButton.gameObject.SetActive(true);
+        private void OnGameOver()
+        {
+            _rewardPool.ClearAllRewards();
+            _restartButton.gameObject.SetActive(true);
+        }
 
         public void ShowResult(SpinResult result)
         {
