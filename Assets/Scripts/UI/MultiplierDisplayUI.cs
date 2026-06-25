@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using WheelOfFortune.Events;
+using WheelOfFortune.Utilities;
 
 namespace WheelOfFortune.UI
 {
@@ -14,10 +15,8 @@ namespace WheelOfFortune.UI
 
         private void OnMultiplierChanged(float multiplier)
         {
-            if (_label == null) return;
-            _label.text = multiplier % 1f == 0f
-                ? $"{_prefix}{multiplier:F0}"
-                : $"{_prefix}{multiplier:F1}";
+            if (!_label) return;
+            _label.text = RewardFormatter.FormatMultiplier(multiplier, _prefix);
         }
     }
 }

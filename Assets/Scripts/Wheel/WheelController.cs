@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using WheelOfFortune.Data;
 using WheelOfFortune.Events;
+using WheelOfFortune.Utilities;
 
 namespace WheelOfFortune.Wheel
 {
@@ -21,6 +22,10 @@ namespace WheelOfFortune.Wheel
         [Header("Zone Intervals")]
         [SerializeField] private int _safeZoneInterval = 5;
         [SerializeField] private int _superZoneInterval = 30;
+
+        [Header("Spin Settings")]
+        [SerializeField] private int _minFullSpins = 2;
+        [SerializeField] private int _maxFullSpins = 6;
 
         [Header("Bomb Percent Curve")]
         [SerializeField] private AnimationCurve _bombPercentCurve = AnimationCurve.Linear(0, 25, 20, 75);
@@ -58,7 +63,7 @@ namespace WheelOfFortune.Wheel
             _spinCount++;
             GameEvents.OnSpinCountChanged.Raise(_spinCount);
 
-            ZoneType newZone = GetZoneType(_spinCount);
+            ZoneType newZone = ZoneHelper.GetZoneType(_spinCount, _safeZoneInterval, _superZoneInterval);
             if (newZone != _currentZoneType)
             {
                 _currentZoneType = newZone;
@@ -89,7 +94,7 @@ namespace WheelOfFortune.Wheel
             float clockwiseDelta = (normalizedZ + targetCenter) % 360f;
             if (clockwiseDelta < 0.01f) clockwiseDelta = 360f;
 
-            float fullSpins = Random.Range(2, 6) * 360f;
+            float fullSpins = Random.Range(_minFullSpins, _maxFullSpins + 1) * 360f;
             float finalZ = normalizedZ - fullSpins - clockwiseDelta;
             float duration = Random.Range(_minSpinDuration, _maxSpinDuration);
 
@@ -102,13 +107,6 @@ namespace WheelOfFortune.Wheel
 
         public float GetBombPercent(int spinCount) =>
             Mathf.Clamp(_bombPercentCurve.Evaluate(spinCount), 0f, 100f);
-
-        private ZoneType GetZoneType(int spinCount)
-        {
-            if (spinCount % _superZoneInterval == 0) return ZoneType.Super;
-            if (spinCount % _safeZoneInterval == 0) return ZoneType.Safe;
-            return ZoneType.Normal;
-        }
 
         private WheelConfig GetConfig(ZoneType zone) => zone switch
         {

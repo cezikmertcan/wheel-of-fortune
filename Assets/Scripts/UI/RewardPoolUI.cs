@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using WheelOfFortune.Core;
 using WheelOfFortune.Data;
 using WheelOfFortune.Events;
+using WheelOfFortune.Utilities;
 using WheelOfFortune.Wheel;
 
 namespace WheelOfFortune.UI
@@ -31,6 +32,9 @@ namespace WheelOfFortune.UI
         [SerializeField] private float _spawnRadius = 30f;
         [SerializeField] private float _particleDelay = 0.08f;
         [SerializeField] private float _particleDuration = 0.55f;
+        [SerializeField] private float _particleMidHorizontalRange = 60f;
+        [SerializeField] private float _particleMidVerticalMin = 30f;
+        [SerializeField] private float _particleMidVerticalMax = 100f;
 
         private readonly Dictionary<string, RewardRowUI> _rows = new();
         private ZoneType _currentZoneType = ZoneType.Normal;
@@ -70,7 +74,10 @@ namespace WheelOfFortune.UI
 
             GameEvents.OnCollectAndExit.Raise();
         }
+
         private void OnBombHit() => SetExitVisible(false);
+        private void OnSpinStarted() => SetExitVisible(false);
+        private void OnResultDisplayComplete() => SetExitVisible(CanShowExit);
 
         public void ClearAllRewards()
         {
@@ -78,9 +85,6 @@ namespace WheelOfFortune.UI
                 if (row) Destroy(row.gameObject);
             _rows.Clear();
         }
-        private void OnSpinStarted() => SetExitVisible(false);
-
-        private void OnResultDisplayComplete() => SetExitVisible(CanShowExit);
 
         private void OnZoneChanged(ZoneType zone)
         {
@@ -104,7 +108,7 @@ namespace WheelOfFortune.UI
             ScrollToRow(row);
             Canvas.ForceUpdateCanvases();
 
-            int finalValue = Mathf.RoundToInt(result.Slice.Value * result.Multiplier);
+            int finalValue = RewardFormatter.ComputeValue(result.Slice.Value, result.Multiplier);
             SpawnParticles(row, result.Slice.IconSprite, finalValue);
         }
 
@@ -152,13 +156,16 @@ namespace WheelOfFortune.UI
                 float delay = i * _particleDelay;
 
                 Image particle = Instantiate(_particlePrefab, _particleContainer);
-                if (icon != null) particle.sprite = icon;
+                if (icon) particle.sprite = icon;
 
                 Vector2 randCircle = Random.insideUnitCircle * _spawnRadius;
                 particle.transform.position = start + new Vector3(randCircle.x, randCircle.y, 0f);
 
                 Vector3 mid = Vector3.Lerp(start, end, 0.5f)
-                            + new Vector3(Random.Range(-60f, 60f), Random.Range(30f, 100f), 0f);
+                            + new Vector3(
+                                Random.Range(-_particleMidHorizontalRange, _particleMidHorizontalRange),
+                                Random.Range(_particleMidVerticalMin, _particleMidVerticalMax),
+                                0f);
 
                 particle.transform
                     .DOPath(new[] { start, mid, end }, _particleDuration, PathType.CatmullRom)

@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using WheelOfFortune.Data;
 using WheelOfFortune.Events;
+using WheelOfFortune.Utilities;
 
 namespace WheelOfFortune.UI
 {
@@ -67,7 +68,7 @@ namespace WheelOfFortune.UI
             {
                 ZoneCardUI card = Instantiate(_cardPrefab, _content);
                 card.gameObject.name = $"Zone {spin}";
-                card.Setup(spin, GetZoneType(spin));
+                card.Setup(spin, ZoneHelper.GetZoneType(spin, _safeZoneInterval, _superZoneInterval));
                 _cards.Add(card);
             }
         }
@@ -92,13 +93,6 @@ namespace WheelOfFortune.UI
                     .SetEase(Ease.OutCubic);
             else
                 _content.anchoredPosition = target;
-        }
-
-        private ZoneType GetZoneType(int spinCount)
-        {
-            if (spinCount % _superZoneInterval == 0) return ZoneType.Super;
-            if (spinCount % _safeZoneInterval == 0) return ZoneType.Safe;
-            return ZoneType.Normal;
         }
     }
 }
