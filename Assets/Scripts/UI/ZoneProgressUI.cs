@@ -32,6 +32,7 @@ namespace WheelOfFortune.UI
         {
             _safeZoneInterval = safeZoneInterval;
             _superZoneInterval = superZoneInterval;
+            _activeIndex = 0;
 
             foreach (Transform child in _content) Destroy(child.gameObject);
             _cards.Clear();
