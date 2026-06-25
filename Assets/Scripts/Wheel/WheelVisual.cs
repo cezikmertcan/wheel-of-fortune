@@ -20,12 +20,12 @@ namespace WheelOfFortune.Wheel
         [SerializeField] private Sprite _indicatorSafeSprite;
         [SerializeField] private Sprite _indicatorSuperSprite;
 
-        private void Awake()
+        private void OnEnable()
         {
             GameEvents.OnZoneChanged.Subscribe(OnZoneChanged);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             GameEvents.OnZoneChanged.Unsubscribe(OnZoneChanged);
         }

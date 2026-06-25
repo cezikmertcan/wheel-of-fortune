@@ -42,7 +42,12 @@ namespace WheelOfFortune.UI
         }
 
         private void OnEnable() => GameEvents.OnSpinCountChanged.Subscribe(OnSpinCountChanged);
-        private void OnDisable() => GameEvents.OnSpinCountChanged.Unsubscribe(OnSpinCountChanged);
+
+        private void OnDisable()
+        {
+            GameEvents.OnSpinCountChanged.Unsubscribe(OnSpinCountChanged);
+            _slideTween?.Kill();
+        }
 
         private void OnSpinCountChanged(int spinCount)
         {

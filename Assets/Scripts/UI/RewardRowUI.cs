@@ -25,6 +25,8 @@ namespace WheelOfFortune.UI
             if (_icon != null && icon != null) _icon.sprite = icon;
         }
 
+        private void OnDestroy() => _countTween?.Kill();
+
         public void AddAmount(int value, TweenCallback onComplete = null)
         {
             _countTween?.Kill();

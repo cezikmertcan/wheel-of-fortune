@@ -25,24 +25,33 @@ namespace WheelOfFortune.UI
             _spinButton.onClick.AddListener(OnSpinButtonClicked);
             _restartButton.onClick.AddListener(OnRestartClicked);
             _restartButton.gameObject.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
             GameEvents.OnResultDisplayComplete.Subscribe(OnResultDisplayComplete);
             GameEvents.OnCollectAndExit.Subscribe(OnCollectAndExit);
             GameEvents.OnGameOver.Subscribe(OnGameOver);
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.OnResultDisplayComplete.Unsubscribe(OnResultDisplayComplete);
+            GameEvents.OnCollectAndExit.Unsubscribe(OnCollectAndExit);
+            GameEvents.OnGameOver.Unsubscribe(OnGameOver);
         }
 
         private void OnDestroy()
         {
             _spinButton.onClick.RemoveListener(OnSpinButtonClicked);
             _restartButton.onClick.RemoveListener(OnRestartClicked);
-            GameEvents.OnResultDisplayComplete.Unsubscribe(OnResultDisplayComplete);
-            GameEvents.OnCollectAndExit.Unsubscribe(OnCollectAndExit);
-            GameEvents.OnGameOver.Unsubscribe(OnGameOver);
         }
 
         private void OnResultDisplayComplete() =>
             DOVirtual.DelayedCall(_spinButtonEnableDelay, () => _spinButton.interactable = true);
 
         private void OnCollectAndExit() => _restartButton.gameObject.SetActive(true);
+
         private void OnGameOver()
         {
             _rewardPool.ClearAllRewards();
