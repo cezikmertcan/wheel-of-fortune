@@ -9,7 +9,6 @@ namespace WheelOfFortune.UI
     {
         [SerializeField] private Button _reviveButton;
         [SerializeField] private Button _giveUpButton;
-        [SerializeField] private GameObject _gameOverPanel;
 
         private void OnEnable()
         {
@@ -44,8 +43,6 @@ namespace WheelOfFortune.UI
         {
             gameObject.SetActive(false);
             GameEvents.OnGameOver.Raise();
-            if (_gameOverPanel != null)
-                _gameOverPanel.SetActive(true);
         }
 
 #if UNITY_EDITOR

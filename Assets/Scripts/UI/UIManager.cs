@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using WheelOfFortune.Core;
 using WheelOfFortune.Events;
@@ -15,6 +14,7 @@ namespace WheelOfFortune.UI
         [SerializeField] private RewardPoolUI _rewardPool;
         [SerializeField] private BombResultPanel _bombResultPanel;
         [SerializeField] private GameObject _collectResultPanel;
+        [SerializeField] private GameObject _gameOverPanel;
 
         [Header("Settings")]
         [SerializeField] private float _spinButtonEnableDelay = 0.5f;
@@ -56,6 +56,7 @@ namespace WheelOfFortune.UI
         {
             _rewardPool.ClearAllRewards();
             _restartButton.gameObject.SetActive(true);
+            if (_gameOverPanel) _gameOverPanel.SetActive(true);
         }
 
         public void ShowResult(SpinResult result)
@@ -72,8 +73,7 @@ namespace WheelOfFortune.UI
 
         public void ShowCollectResult()
         {
-            if (_collectResultPanel != null)
-                _collectResultPanel.SetActive(true);
+            if (_collectResultPanel) _collectResultPanel.SetActive(true);
             _rewardPool.SetExitVisible(false);
         }
 
@@ -83,8 +83,14 @@ namespace WheelOfFortune.UI
             GameEvents.OnSpinButtonClicked.Raise();
         }
 
-        private void OnRestartClicked() =>
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        private void OnRestartClicked()
+        {
+            _spinButton.interactable = true;
+            _restartButton.gameObject.SetActive(false);
+            if (_collectResultPanel) _collectResultPanel.SetActive(false);
+            if (_gameOverPanel) _gameOverPanel.SetActive(false);
+            GameEvents.OnRestart.Raise();
+        }
 
 #if UNITY_EDITOR
         private void OnValidate()

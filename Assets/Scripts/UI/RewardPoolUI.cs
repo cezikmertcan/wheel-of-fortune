@@ -53,6 +53,7 @@ namespace WheelOfFortune.UI
             GameEvents.OnResultDisplayComplete.Subscribe(OnResultDisplayComplete);
             GameEvents.OnZoneChanged.Subscribe(OnZoneChanged);
             GameEvents.OnSpinButtonClicked.Subscribe(OnSpinStarted);
+            GameEvents.OnRestart.Subscribe(OnRestart);
         }
 
         private void OnDisable()
@@ -62,6 +63,7 @@ namespace WheelOfFortune.UI
             GameEvents.OnResultDisplayComplete.Unsubscribe(OnResultDisplayComplete);
             GameEvents.OnZoneChanged.Unsubscribe(OnZoneChanged);
             GameEvents.OnSpinButtonClicked.Unsubscribe(OnSpinStarted);
+            GameEvents.OnRestart.Unsubscribe(OnRestart);
         }
 
         private void OnExitClicked()
@@ -84,6 +86,13 @@ namespace WheelOfFortune.UI
             foreach (var row in _rows.Values)
                 if (row) Destroy(row.gameObject);
             _rows.Clear();
+        }
+
+        private void OnRestart()
+        {
+            ClearAllRewards();
+            SetExitVisible(false);
+            _currentZoneType = ZoneType.Normal;
         }
 
         private void OnZoneChanged(ZoneType zone)
