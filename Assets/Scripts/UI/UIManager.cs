@@ -2,6 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using WheelOfFortune.Core;
 using WheelOfFortune.Events;
 using WheelOfFortune.Wheel;
 

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using WheelOfFortune.Data;
 using WheelOfFortune.Events;
+using WheelOfFortune.Utilities;
 
 namespace WheelOfFortune.Wheel
 {
@@ -24,7 +25,7 @@ namespace WheelOfFortune.Wheel
 
             bool isBomb = data == null;
 
-            if (_icon != null)
+            if (_icon)
                 _icon.sprite = isBomb ? bombSprite : data.IconSprite;
 
             UpdateValueText();
@@ -38,9 +39,9 @@ namespace WheelOfFortune.Wheel
 
         private void UpdateValueText()
         {
-            if (_valueText == null) return;
+            if (!_valueText) return;
             if (Data == null) { _valueText.text = string.Empty; return; }
-            _valueText.text = Mathf.RoundToInt(Data.Value * _multiplier).ToString();
+            _valueText.text = RewardFormatter.ComputeValue(Data.Value, _multiplier).ToString();
         }
     }
 }
