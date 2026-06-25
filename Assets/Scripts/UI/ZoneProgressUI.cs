@@ -36,6 +36,7 @@ namespace WheelOfFortune.UI
 
             foreach (Transform child in _content) Destroy(child.gameObject);
             _cards.Clear();
+            _content.anchoredPosition = Vector2.zero;
 
             AddCards(_initialCardCount);
             _cards[0].SetCurrent(true);
