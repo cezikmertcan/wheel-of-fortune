@@ -14,5 +14,6 @@ namespace WheelOfFortune.Events
         public static readonly GameEvent OnCollectAndExit = new();
         public static readonly GameEvent OnBombHit = new();
         public static readonly GameEvent OnGameOver = new();
+        public static readonly GameEvent<int> OnCurrencyChanged = new();
     }
 }

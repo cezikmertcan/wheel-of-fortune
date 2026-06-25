@@ -1,4 +1,5 @@
 using WheelOfFortune.Core;
+using WheelOfFortune.Economy;
 using WheelOfFortune.UI;
 
 public static class GameContext
@@ -6,6 +7,7 @@ public static class GameContext
     public static GameState state = GameState.Idle;
     public static GameManager GameManager { get; set; }
     public static UIManager UIManager { get; set; }
+    public static ICurrencyManager CurrencyManager { get; set; }
 }
 
 public enum GameState

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using WheelOfFortune.Core;
 using WheelOfFortune.Data;
 using WheelOfFortune.Events;
 using WheelOfFortune.Wheel;
@@ -59,8 +60,24 @@ namespace WheelOfFortune.UI
             GameEvents.OnSpinButtonClicked.Unsubscribe(OnSpinStarted);
         }
 
-        private void OnExitClicked() => GameEvents.OnCollectAndExit.Raise();
+        private void OnExitClicked()
+        {
+            if (_rows.TryGetValue(GameConstants.GoldItemId, out var goldRow)
+                && GameContext.CurrencyManager != null)
+            {
+                GameContext.CurrencyManager.Add(goldRow.CurrentAmount);
+            }
+
+            GameEvents.OnCollectAndExit.Raise();
+        }
         private void OnBombHit() => SetExitVisible(false);
+
+        public void ClearAllRewards()
+        {
+            foreach (var row in _rows.Values)
+                if (row) Destroy(row.gameObject);
+            _rows.Clear();
+        }
         private void OnSpinStarted() => SetExitVisible(false);
 
         private void OnResultDisplayComplete() => SetExitVisible(CanShowExit);
